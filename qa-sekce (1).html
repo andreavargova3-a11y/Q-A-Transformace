@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q&A ze setkání</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1117;
+    color: #e8ecf4;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .wrap {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    color: #4f8ef7;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e8ecf4;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: #7a8499;
+    font-size: 0.95rem;
+  }
+
+  .qa-item {
+    border: 1px solid #252b3b;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background: #181c27;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .qa-item.open {
+    border-color: rgba(79,142,247,0.45);
+  }
+
+  .qa-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.15s;
+  }
+
+  .qa-item.open .qa-question {
+    background: #141824;
+    border-bottom: 1px solid #252b3b;
+  }
+
+  .qa-question:hover {
+    background: rgba(255,255,255,0.03);
+  }
+
+  .q-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .q-num {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(79,142,247,0.12);
+    color: #4f8ef7;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .qa-item.open .q-num {
+    background: #4f8ef7;
+    color: #fff;
+  }
+
+  .q-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #e8ecf4;
+  }
+
+  .q-arrow {
+    flex-shrink: 0;
+    font-size: 18px;
+    color: #7a8499;
+    transition: transform 0.3s;
+    line-height: 1;
+  }
+
+  .qa-item.open .q-arrow {
+    transform: rotate(180deg);
+    color: #4f8ef7;
+  }
+
+  .qa-answer {
+    display: none;
+    padding: 16px 20px 20px 58px;
+    color: #a8b3cc;
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  .qa-item.open .qa-answer {
+    display: block;
+  }
+
+  .counter {
+    text-align: center;
+    margin-top: 32px;
+    color: #7a8499;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Transformace</p>
+    <h1>Q&amp;A ze setkání</h1>
+    <p class="subtitle">Klikněte na otázku pro zobrazení odpovědi</p>
+  </header>
+
+  <div id="list">
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">1</span>
+          <span class="q-text">Je v transformačním týmu někdo, kdo zastupuje zákaznickou perspektivu?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Zatím tuto roli částečně zastupuje Jakub Matuška. Do budoucna je cílem vytvořit samostatnou roli, která bude vlastnit zákaznickou zkušenost napříč celou firmou.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">2</span>
+          <span class="q-text">Jak bude řešena agenda intercompany přeprodejů?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Téma je považováno za velmi důležité a bude řešeno samostatně, pravděpodobně jako vlastní stream, protože zasahuje více divizí (výkup, logistika, finance).</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">3</span>
+          <span class="q-text">Jak bude fungovat spolupráce Business Ownera a Product Ownera?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Business Owner definuje byznysovou potřebu (co a proč). Product Owner z IT navrhuje technologické řešení (jak). Společně řídí roadmapu produktu nebo procesu.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">4</span>
+          <span class="q-text">Kdo bude dělat byznysovou analýzu procesů?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Primárně ji vlastní business, tedy Business Owner. Transformační tým poskytuje metodickou podporu a pomáhá s mapováním procesů.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">5</span>
+          <span class="q-text">Co když projekt přinese benefity více divizím najednou?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Při přípravě projektů se bude provádět „cross-division check", aby se vyhodnotily dopady a přínosy napříč více odděleními.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">6</span>
+          <span class="q-text">Bude se měnit také reporting a řízení výkonu?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Ano. Součástí transformace je zavedení jednotného management systému, OKR a sjednoceného reportingu.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">7</span>
+          <span class="q-text">Jak rychle uvidíme výsledky transformace?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">První měsíce budou zaměřeny především na analýzu a návrh procesů. Viditelné změny v systémech se projeví až ve fázi implementace.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">8</span>
+          <span class="q-text">Co když nemáme kapacitu řešit transformaci vedle běžné práce?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Firma si uvědomuje kapacitní omezení. Priority se budou postupně upravovat a některé aktivity mohou být omezeny, aby bylo možné transformaci realizovat.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-question" onclick="toggle(this)">
+        <div class="q-left">
+          <span class="q-num">9</span>
+          <span class="q-text">Jak se bude řešit odpor zaměstnanců ke změnám?</span>
+        </div>
+        <span class="q-arrow">&#9660;</span>
+      </div>
+      <div class="qa-answer">Součástí projektu bude change management. Business Owneři budou fungovat jako ambasadoři změny a pomohou nové procesy zavádět do praxe.</div>
+    </div>
+
+  </div>
+
+  <p class="counter" id="counter">9 otázek — klikněte pro zobrazení odpovědi</p>
+
+</div>
+
+<script>
+  function toggle(btn) {
+    var item = btn.closest('.qa-item');
+    item.classList.toggle('open');
+    var open = document.querySelectorAll('.qa-item.open').length;
+    document.getElementById('counter').textContent = open > 0
+      ? 'Zobrazeno ' + open + ' z 9 odpovědí'
+      : '9 otázek — klikněte pro zobrazení odpovědi';
+  }
+</script>
+</body>
+</html>
